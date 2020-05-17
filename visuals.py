@@ -62,6 +62,7 @@ def evaluate(results, accuracy, f1):
     # Create figure
     fig, ax = pl.subplots(2, 3, figsize = (11,7))
 
+
     # Constants
     bar_width = 0.3
     colors = ['#A00000','#00A0A0','#00A000']
@@ -79,20 +80,20 @@ def evaluate(results, accuracy, f1):
                 ax[j//3, j%3].set_xlim((-0.1, 3.0))
     
     # Add unique y-labels
-    ax[0, 0].set_ylabel("Time (in seconds)")
-    ax[0, 1].set_ylabel("Accuracy Score")
+    ax[0, 0].set_ylabel("Time (s)")
+    ax[0, 1].set_ylabel("Accuracy")
     ax[0, 2].set_ylabel("F-score")
-    ax[1, 0].set_ylabel("Time (in seconds)")
-    ax[1, 1].set_ylabel("Accuracy Score")
+    ax[1, 0].set_ylabel("Time (s)")
+    ax[1, 1].set_ylabel("Accuracy")
     ax[1, 2].set_ylabel("F-score")
     
     # Add titles
-    ax[0, 0].set_title("Model Training")
-    ax[0, 1].set_title("Accuracy Score on Training Subset")
-    ax[0, 2].set_title("F-score on Training Subset")
-    ax[1, 0].set_title("Model Predicting")
-    ax[1, 1].set_title("Accuracy Score on Testing Set")
-    ax[1, 2].set_title("F-score on Testing Set")
+    ax[0, 0].set_title("Training time")
+    ax[0, 1].set_title("Training Accuracy")
+    ax[0, 2].set_title("Training F-score")
+    ax[1, 0].set_title("Predict time")
+    ax[1, 1].set_title("Testing Accuracy")
+    ax[1, 2].set_title("Testing F-score")
     
     # Add horizontal lines for naive predictors
     ax[0, 1].axhline(y = accuracy, xmin = -0.1, xmax = 3.0, linewidth = 1, color = 'k', linestyle = 'dashed')
@@ -110,12 +111,14 @@ def evaluate(results, accuracy, f1):
     patches = []
     for i, learner in enumerate(results.keys()):
         patches.append(mpatches.Patch(color = colors[i], label = learner))
-    pl.legend(handles = patches, bbox_to_anchor = (-.80, 2.53), \
-               loc = 'upper center', borderaxespad = 0., ncol = 3, fontsize = 'x-large')
+    pl.legend(handles = patches, bbox_to_anchor = (-.80, 2.70), \
+               loc = 'center', borderaxespad = 0., ncol = 3, fontsize = 'x-large')
     
     # Aesthetics
-    pl.suptitle("Performance Metrics for Three Supervised Learning Models", fontsize = 16, y = 1.10)
+    pl.suptitle("Performance Metrics for Three Supervised Learning Models", fontsize = 16, y = 1.0)
+    pl.subplots_adjust(hspace=0.5, wspace=0.3)
     pl.tight_layout()
+
     pl.show()
     
 
